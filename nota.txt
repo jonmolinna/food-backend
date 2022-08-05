@@ -1,6 +1,8 @@
 npm i @nestjs/graphql @nestjs/apollo graphql apollo-server-express
 npm i @nestjs/typeorm typeorm pg
 npm i class-validator class-transformer
+npm i bcrypt
+npm i @types/bcrypt -D
 
 nest g module foods
 nest g service foods
@@ -9,3 +11,11 @@ nest g resolver foods
 nest g module categories
 nest g resolver categories
 nest g service categories
+
+nest g module users
+nest g resolver users
+nest g service users
+
+nest g module favorite_food
+nest g resolver favorite_food
+nest g service favorite_food

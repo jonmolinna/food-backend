@@ -13,6 +13,11 @@ export class CategoriesResolver {
     return this.categoryService.getAllCategory();
   }
 
+  @Query(() => Category, { nullable: true })
+  category(@Args('id', { type: () => ID }) id: number): Promise<Category> {
+    return this.categoryService.getCategoryById(id);
+  }
+
   @Mutation(() => Category)
   createCategory(
     @Args('createCategoryInput') createCategoryInput: CreateCategoryInput,

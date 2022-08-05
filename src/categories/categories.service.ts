@@ -13,7 +13,10 @@ export class CategoriesService {
   ) {}
 
   async getCategoryById(id: number): Promise<Category> {
-    return await this.categoryRepository.findOne({ where: { id } });
+    return await this.categoryRepository.findOne({
+      where: { id },
+      relations: ['foods'],
+    });
   }
 
   async getAllCategory(): Promise<Category[]> {
@@ -26,6 +29,7 @@ export class CategoriesService {
   async createCategory(dto: CreateCategoryInput): Promise<Category> {
     const newCategory = new Category();
     newCategory.name = dto.name.trim().toLocaleLowerCase();
+    newCategory.imagen = dto.imagen;
 
     return this.categoryRepository.save(newCategory);
   }
@@ -39,6 +43,7 @@ export class CategoriesService {
 
     const editCategory = Object.assign(category, {
       name: dto.name.trim().toLocaleLowerCase(),
+      imagen: dto.imagen || category.imagen,
     });
 
     return this.categoryRepository.save(editCategory);

@@ -19,7 +19,12 @@ export class Category {
   @Field(() => String)
   name: string;
 
+  @Column()
+  @Field()
+  imagen: string;
+
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
+  @Field()
   createdAt: Date;
 
   @OneToMany(() => Food, (food) => food.category)

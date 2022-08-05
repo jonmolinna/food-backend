@@ -36,6 +36,7 @@ export class Food {
   categoryId: number;
 
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
+  @Field()
   createdAt: Date;
 
   @ManyToOne(() => Category, (category) => category.foods)

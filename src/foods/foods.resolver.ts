@@ -22,6 +22,11 @@ export class FoodsResolver {
     return this.foodService.findAllFood();
   }
 
+  @Query(() => Food, { nullable: true })
+  food(@Args('id', { type: () => ID }) id: number): Promise<Food> {
+    return this.foodService.getFoodById(id);
+  }
+
   @Mutation(() => Food)
   createFood(
     @Args('createFoodInput') createFoodInput: CreateFoodInput,
