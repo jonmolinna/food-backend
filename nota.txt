@@ -3,6 +3,10 @@ npm i @nestjs/typeorm typeorm pg
 npm i class-validator class-transformer
 npm i bcrypt
 npm i @types/bcrypt -D
+npm install --save @nestjs/passport passport passport-local
+npm install --save-dev @types/passport-local
+npm install @nestjs/jwt passport-jwt
+npm install --save-dev @types/passport-jwt
 
 nest g module foods
 nest g service foods
@@ -15,6 +19,10 @@ nest g service categories
 nest g module users
 nest g resolver users
 nest g service users
+
+nest g module auth
+nest g resolver auth
+nest g service auth
 
 nest g module favorite_food
 nest g resolver favorite_food

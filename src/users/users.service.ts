@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserInput } from './dto/CreateUser.dto';
@@ -13,23 +17,32 @@ export class UsersService {
   ) {}
 
   async getUserById(id: number): Promise<User> {
-    return this.userRepository.findOne({ where: { id } });
+    return await this.userRepository.findOne({ where: { id } });
+  }
+
+  async getUserByEmail(email: string): Promise<User> {
+    return await this.userRepository.findOne({ where: { email } });
   }
 
   async findAllUser(): Promise<User[]> {
-    return this.userRepository.find({ order: { createdAt: 'DESC' } });
+    return await this.userRepository.find({ order: { createdAt: 'DESC' } });
   }
 
   async createUser(dto: CreateUserInput): Promise<User> {
+    const userEmail = await this.getUserByEmail(
+      dto.email.trim().toLocaleLowerCase(),
+    );
+    if (userEmail) throw new BadRequestException('El correo ya esta en uso');
+
     const hashPassword = encodePassword(dto.password);
 
     const newUser = new User();
     newUser.lastName = dto.lastName.trim().toLocaleLowerCase();
     newUser.firstName = dto.firstName.trim().toLocaleLowerCase();
-    newUser.dni = dto.dni.trim().toLocaleLowerCase();
-    newUser.email = dto.email;
+    newUser.dni = dto.dni.trim();
+    newUser.email = dto.email.trim().toLocaleLowerCase();
     newUser.password = hashPassword;
-    newUser.phone = dto.phone;
+    newUser.phone = dto.phone.trim();
 
     return this.userRepository.save(newUser);
   }

@@ -36,6 +36,11 @@ type User {
   createdAt: DateTime!
 }
 
+type LoginResponse {
+  token: String!
+  user: User!
+}
+
 type Query {
   foods: [Food!]!
   food(id: ID!): Food
@@ -54,6 +59,7 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUser(id: ID!): Boolean!
+  login(loginUserInput: LoginUserInput!): LoginResponse!
 }
 
 input CreateFoodInput {
@@ -101,4 +107,9 @@ input UpdateUserInput {
   dni: String
   password: String
   id: ID!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }

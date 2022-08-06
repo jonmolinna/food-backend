@@ -15,11 +15,11 @@ export class FoodsService {
   ) {}
 
   async getFoodById(id: number): Promise<Food> {
-    return this.foodRepository.findOne({ where: { id } });
+    return await this.foodRepository.findOne({ where: { id } });
   }
 
   async findAllFood(): Promise<Food[]> {
-    return this.foodRepository.find({ order: { createdAt: 'DESC' } });
+    return await this.foodRepository.find({ order: { createdAt: 'DESC' } });
   }
 
   async createFood(dto: CreateFoodInput): Promise<Food> {

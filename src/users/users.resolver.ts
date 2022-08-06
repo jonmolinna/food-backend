@@ -3,6 +3,8 @@ import { CreateUserInput } from './dto/CreateUser.dto';
 import { UpdateUserInput } from './dto/UpdateUser.dto';
 import { User } from './entity/user.entity';
 import { UsersService } from './users.service';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -21,6 +23,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
+  @UseGuards(JwtAuthGuard)
   updateUser(
     @Args('updateUserInput') updateUserInput: UpdateUserInput,
   ): Promise<User> {
