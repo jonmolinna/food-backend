@@ -12,18 +12,14 @@ nest g module foods
 nest g service foods
 nest g resolver foods
 
-nest g module categories
-nest g resolver categories
-nest g service categories
-
-nest g module users
-nest g resolver users
-nest g service users
-
-nest g module auth
-nest g resolver auth
-nest g service auth
-
 nest g module favorite_food
 nest g resolver favorite_food
 nest g service favorite_food
+
+
+Dato
+--------------------------------
+Auth
+-----
+1. Gql Auth Guard
+2. Local Strategy

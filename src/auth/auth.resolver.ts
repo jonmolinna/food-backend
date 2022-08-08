@@ -13,9 +13,9 @@ export class AuthResolver {
   @UseGuards(GqlAuthGuard)
   login(
     @Args('loginUserInput') loginUserInput: LoginUserInput,
+    // req.user = express
     @Context() context,
   ) {
-    console.log('YOOOO', context);
-    return this.authService.login(context?.user);
+    return this.authService.login(context.user);
   }
 }

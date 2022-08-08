@@ -8,7 +8,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
-  providers: [AuthResolver, AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, AuthResolver, LocalStrategy, JwtStrategy],
   imports: [
     PassportModule,
     UsersModule,

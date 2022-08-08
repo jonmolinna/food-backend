@@ -13,27 +13,27 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'first_name' })
+  @Column({ type: 'varchar', length: 200, name: 'first_name' })
   @Field()
   firstName: string;
 
-  @Column({ name: 'last_name' })
+  @Column({ type: 'varchar', length: 200, name: 'last_name' })
   @Field()
   lastName: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 200 })
   @Field()
   email: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 20 })
   @Field()
   phone: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 20 })
   @Field()
   dni: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 200 })
   password: string;
 
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })

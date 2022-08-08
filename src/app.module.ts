@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { FoodsModule } from './foods/foods.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
@@ -12,10 +10,10 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    FoodsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       driver: ApolloDriver,
+      sortSchema: true,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -27,11 +25,10 @@ import { AuthModule } from './auth/auth.module';
       entities: ['dist/**/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    FoodsModule,
     CategoriesModule,
     UsersModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
