@@ -8,5 +8,6 @@ import { CategoriesModule } from 'src/categories/categories.module';
 @Module({
   providers: [FoodsService, FoodsResolver],
   imports: [TypeOrmModule.forFeature([Food]), CategoriesModule],
+  exports: [FoodsService],
 })
 export class FoodsModule {}

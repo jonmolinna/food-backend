@@ -17,7 +17,7 @@ input CreateCategoryInput {
 
 input CreateFoodInput {
   categoryId: ID!
-  description: String
+  description: String!
   imagen: String!
   name: String!
   price: Float!
@@ -42,10 +42,20 @@ type Food {
   categoryId: Int!
   createdAt: DateTime!
   description: String!
+  foodLikes: [FoodLike!]
   id: ID!
   imagen: String!
   name: String!
   price: Float!
+}
+
+type FoodLike {
+  createdAt: DateTime!
+  food: Food
+  foodId: ID!
+  id: ID!
+  user: User
+  userId: ID!
 }
 
 type LoginResponse {
@@ -59,11 +69,13 @@ input LoginUserInput {
 }
 
 type Mutation {
+  addLikeFoodByUser(idFood: ID!): FoodLike!
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
   createFood(createFoodInput: CreateFoodInput!): Food!
   createUser(createUserInput: CreateUserInput!): User!
   deleteCategory(id: ID!): Boolean!
   deleteFood(id: ID!): Boolean!
+  deleteLikeFoodByUser(idFoodLike: ID!): Boolean!
   deleteUser(id: ID!): Boolean!
   login(loginUserInput: LoginUserInput!): LoginResponse!
   updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
@@ -76,6 +88,7 @@ type Query {
   category(id: ID!): Category
   food(id: ID!): Food
   foods: [Food!]!
+  likeFoodByUser: [FoodLike!]!
   users: [User!]!
 }
 
@@ -109,6 +122,7 @@ type User {
   dni: String!
   email: String!
   firstName: String!
+  foodLikes: [FoodLike!]
   id: ID!
   lastName: String!
   phone: String!

@@ -1,10 +1,12 @@
 import { Field, Float, ObjectType, ID, Int } from '@nestjs/graphql';
 import { Category } from 'src/categories/entity/category.entity';
+import { FoodLike } from 'src/food_like/entity/food_like.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -15,15 +17,15 @@ export class Food {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: 'varchar', length: 200 })
   @Field()
   name: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 200 })
   @Field()
   description: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   @Field()
   imagen: string;
 
@@ -42,4 +44,8 @@ export class Food {
   @ManyToOne(() => Category, (category) => category.foods)
   @Field(() => Category, { nullable: true })
   category: Category;
+
+  @OneToMany(() => FoodLike, (foodLike) => foodLike.food)
+  @Field(() => [FoodLike], { nullable: true })
+  foodLikes?: FoodLike[];
 }

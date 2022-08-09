@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { FoodLike } from 'src/food_like/entity/food_like.entity';
 
 @Entity({ name: 'users' })
 @ObjectType()
@@ -39,4 +41,8 @@ export class User {
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
   @Field()
   createdAt: Date;
+
+  @OneToMany(() => FoodLike, (foodLike) => foodLike.user)
+  @Field(() => [FoodLike], { nullable: true })
+  foodLikes?: FoodLike[];
 }

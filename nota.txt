@@ -8,13 +8,9 @@ npm install --save-dev @types/passport-local
 npm install @nestjs/jwt passport-jwt
 npm install --save-dev @types/passport-jwt
 
-nest g module foods
-nest g service foods
-nest g resolver foods
-
-nest g module favorite_food
-nest g resolver favorite_food
-nest g service favorite_food
+nest g module food_like
+nest g service food_like
+nest g resolver food_like
 
 
 Dato
@@ -23,3 +19,8 @@ Auth
 -----
 1. Gql Auth Guard
 2. Local Strategy
+
+Rutas Autorizadas
+------------------------------
+1. JWT Strategy
+2. JWT Auth Guard

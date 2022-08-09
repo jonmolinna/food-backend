@@ -7,8 +7,9 @@ export class CreateFoodInput {
   @Field()
   name: string;
 
-  @Field({ nullable: true })
-  description?: string;
+  @IsNotEmpty()
+  @Field()
+  description: string;
 
   @IsNotEmpty()
   @Field()
