@@ -8,6 +8,14 @@ import { CategoriesModule } from './categories/categories.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { FoodLikeModule } from './food_like/food_like.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import {
+  DB_HOST,
+  DB_PORT,
+  DB_USERNAME,
+  DB_PASSWORD,
+  DB_DATABASE,
+} from './config/constants';
 
 @Module({
   imports: [
@@ -16,15 +24,21 @@ import { FoodLikeModule } from './food_like/food_like.module';
       driver: ApolloDriver,
       sortSchema: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'molina125',
-      database: 'food_db',
-      entities: ['dist/**/**/*.entity{.ts,.js}'],
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        type: 'postgres',
+        host: config.get<string>(DB_HOST),
+        port: parseInt(config.get<string>(DB_PORT), 10),
+        username: config.get<string>(DB_USERNAME),
+        password: config.get<string>(DB_PASSWORD),
+        database: config.get<string>(DB_DATABASE),
+        entities: ['dist/**/**/*.entity{.ts,.js}'],
+        synchronize: true,
+      }),
     }),
     FoodsModule,
     CategoriesModule,
